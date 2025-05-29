@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_ecom__orders
+    description: "Cleaned and renamed order records from raw.orders"
+    columns:
+      - name: order_id
+        description: "Primary key for the order"
+        tests: [not_null, unique]
+
+      - name: customer_id
+        description: "Foreign key to stg_ecom__customers"
+        tests: [not_null]
+
+      - name: ordered_at
+        description: "Timestamp when the order was placed"
+
+  - name: stg_ecom__customers
+    description: "Cleaned customer data from raw.customers"
+    columns:
+      - name: customer_id
+        description: "Primary key for the customer"
+        tests: [not_null, unique]
+
+      - name: first_name
+        description: "Customer first name"
+
+      - name: created_at
+        description: "Customer registration time"

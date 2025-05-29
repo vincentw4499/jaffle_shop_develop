@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: ecom                             # Logical name used in source('ecom', ...)
+    schema: jaffle_shop                            # The actual database schema where raw tables reside
+    description: "E-commerce source system with order and customer tables"
+    tables:
+      - name: raw_orders
+        description: "Raw order records from the ecommerce system"
+        loaded_at_field: ordered_at        # Used for freshness check
+        freshness:
+          warn_after: { count: 24, period: hour }  # Optional: warn if no new data in 24 hrs
+        columns:
+          - name: id
+            description: "Primary key for orders"
+            tests: [not_null, unique]
+
+          - name: customer
+            description: "FK to customers table"
+            tests: [not_null]
+
+
+      - name: raw_customers
+        description: "Raw customer records from the ecommerce system"
+        columns:
+          - name: id
+            description: "Primary key for customers"
+            tests: [not_null, unique]
+      
+
+      - name: raw_order_items
+        description: "Raw order items records from the ecommerce system"
+
+
+      - name: raw_products
+        description: "Raw products records from the ecommerce system"
+
+
+      - name: raw_stores
+        description: "Raw stores records from the ecommerce system"
+
+      - name: raw_supplies
+        description: "Raw supplies records from the ecommerce system"
+
